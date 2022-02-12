@@ -1,7 +1,8 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import Admin from '../pages/admin/Admin.vue';
-import Products from '../pages/admin/Products.vue';
-import Main from '../pages/Main.vue';
+import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router';
+import Products from '@/pages/admin/Products.vue';
+import Admin from '@/pages/admin/Admin.vue';
+import Main from '@/pages/Main.vue';
+import ProductsCreate from '@/pages/admin/ProductsCreate.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -15,6 +16,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'products',
         component: Products,
+      },
+      {
+        path: 'products/create',
+        component: ProductsCreate,
       },
     ],
   },
