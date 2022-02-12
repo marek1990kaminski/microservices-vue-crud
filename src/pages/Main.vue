@@ -1,29 +1,29 @@
 <template>
     <main>
 
-        <div class="album py-5 bg-light">
-            <div class="container">
+        <div class='album py-5 bg-light'>
+            <div class='container'>
 
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <div class='row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3'>
 
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"/>
-                                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
+                    <div class='col' v-for='product in products' :key='product.id'>
+                        <div class='card shadow-sm'>
 
-                            <div class="card-body">
-                                <p class="card-text">This is a wider card with supporting text below as a natural
-                                    lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                            <img :src='product.image' height='180'/>
+
+                            <div class='card-body'>
+                                <p class='card-text'>{{ product.title }}</p>
+                                <div class='d-flex justify-content-between align-items-center'>
+                                    <div class='btn-group'>
+                                        <button
+                                            class='btn btn-sm btn-outline-secondary'
+                                            @click='like(product.id)'
+                                        >
+                                            Like
+                                        </button>
+
                                     </div>
-                                    <small class="text-muted">9 mins</small>
+                                    <small class='text-muted'>{{ product.likes }}</small>
                                 </div>
                             </div>
                         </div>
@@ -36,9 +36,51 @@
     </main>
 </template>
 
-<script>
+<script lang='ts'>
+import {onMounted, ref, Ref} from 'vue';
+import {Product} from '@/types/product';
+import {applicationJson} from '@/pages/admin/ProductsEdit.vue';
+
 export default {
   name: 'Main',
+  setup() {
+    const products: Ref<Array<Product>> = ref<Array<Product>>([]);
+
+    onMounted(async () => {
+      const response = await fetch('http://localhost:8000/api/products');
+
+      products.value = await response.json();
+    });
+
+    const like = async (id: number) => {
+      try {
+        const resp = await fetch(
+          `http://localhost:8001/api/products/${id}/like/`,
+          {
+            method: 'POST',
+            headers: {'Content-type': applicationJson}
+          }
+        );
+        const resp2 = await resp.json();
+
+        products.value.forEach(
+          (p: Product) => {
+            if (p.id === id) {
+              // eslint-disable-next-line no-param-reassign, no-plusplus
+              p.likes++;
+            }
+          }
+        );
+      } catch (e) {
+        console.log('lol, no this time');
+      }
+    };
+
+    return {
+      products,
+      like
+    };
+  }
 };
 </script>
 

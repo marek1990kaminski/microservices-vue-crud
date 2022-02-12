@@ -13,9 +13,11 @@
 </template>
 
 <script lang='ts'>
-import {Ref, ref} from 'vue';
-import {useRouter} from 'vue-router';
-import {applicationJson} from '@/pages/admin/ProductsEdit.vue';
+import {onMounted, Ref, ref} from 'vue';
+import {useRoute, useRouter} from 'vue-router';
+
+export const id = 'id';
+export const applicationJson = 'application/json';
 
 export default {
   name: 'ProductsCreate',
@@ -24,12 +26,20 @@ export default {
     const image: Ref<string> = ref<string>('');
 
     const router = useRouter();
+    const route = useRoute();
+
+    onMounted(async () => {
+      const response = await fetch(`http://localhost:8000/api/products/${route.params[id]}/`);
+      const product = await response.json();
+      title.value = product.title;
+      image.value = product.image;
+    });
 
     const submit = async () => {
       await fetch(
-        'http://localhost:8000/api/products/',
+        `http://localhost:8000/api/products/${route.params[id]}/`,
         {
-          method: 'POST',
+          method: 'PUT',
           headers: {
             'Content-type': applicationJson
           },
@@ -49,5 +59,4 @@ export default {
     };
   },
 };
-
 </script>
