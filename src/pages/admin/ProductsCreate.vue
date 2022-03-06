@@ -13,11 +13,11 @@
 </template>
 
 <script lang='ts'>
-import {Ref, ref} from 'vue';
+import {defineComponent, Ref, ref} from 'vue';
 import {useRouter} from 'vue-router';
 import {applicationJson} from '@/pages/admin/ProductsEdit.vue';
 
-export default {
+export default defineComponent({
   name: 'ProductsCreate',
   setup() {
     const title: Ref<string> = ref<string>('');
@@ -48,6 +48,6 @@ export default {
       submit,
     };
   },
-};
+});
 
 </script>

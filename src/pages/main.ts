@@ -2,7 +2,7 @@ import {applicationJson} from '@/pages/admin/ProductsEdit.vue';
 import {Product} from '@/types/product';
 import {Ref} from 'vue';
 
-export const getLike = (products: Ref<Array<Product>>) => async (id: number) => {
+export const getLike = (products: Ref<Array<Product>>) => async (id: number): Promise<void> => {
   try {
     const resp = await fetch(
       `http://localhost:8001/api/products/${id}/like/`,
@@ -11,7 +11,7 @@ export const getLike = (products: Ref<Array<Product>>) => async (id: number) => 
         headers: {'Content-type': applicationJson}
       }
     );
-    const resp2 = await resp.json();
+    const extractedResp = await resp.json();
 
     products.value = products.value.map(
       (p: Product) => {

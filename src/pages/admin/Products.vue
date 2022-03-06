@@ -55,13 +55,13 @@
 
 <script lang='ts'>
 import {
-  onMounted, ref, Ref,
+  defineComponent, onMounted, ref, Ref,
 } from 'vue';
 import {Product} from '@/types/product';
 
 export const createProductLink = '/admin/products/create';
 
-export default {
+export default defineComponent({
   name: 'Products',
   setup() {
     const products: Ref<Array<Product>> = ref<Array<Product>>([]);
@@ -88,5 +88,5 @@ export default {
       createProductLink,
     };
   },
-};
+});
 </script>

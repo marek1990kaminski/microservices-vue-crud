@@ -37,11 +37,13 @@
 </template>
 
 <script lang='ts'>
-import {onMounted, ref, Ref} from 'vue';
+import {
+  defineComponent, onMounted, ref, Ref
+} from 'vue';
 import {Product} from '@/types/product';
 import {getLike} from '@/pages/main';
 
-export default {
+export default defineComponent({
   name: 'Main',
   setup() {
     const products: Ref<Array<Product>> = ref<Array<Product>>([]);
@@ -57,7 +59,7 @@ export default {
       like: getLike(products)
     };
   }
-};
+});
 </script>
 
 <style scoped>
