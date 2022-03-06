@@ -17,9 +17,10 @@ module.exports = {
     'max-len': ['warn', 132],
     'object-curly-spacing': ['off', 'always'],
     'space-in-brackets': ['off', 'always'],
-    'quotes': ['error', 'single'],
+    quotes: ['error', 'single'],
     'comma-dangle': ['off', 'always'],
     'no-alert': ['off', 'always'],
     'import/prefer-default-export': ['off', 'always'],
+    'no-param-reassign': ['off']
   },
 };

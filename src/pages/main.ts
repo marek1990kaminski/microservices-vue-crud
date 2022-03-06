@@ -13,11 +13,12 @@ export const getLike = (products: Ref<Array<Product>>) => async (id: number) => 
     );
     const resp2 = await resp.json();
 
-    products.value.forEach(
+    products.value = products.value.map(
       (p: Product) => {
         if (p.id === id) {
-          p.likes++;
+          p.likes += 1;
         }
+        return p;
       }
     );
   } catch (e) {
