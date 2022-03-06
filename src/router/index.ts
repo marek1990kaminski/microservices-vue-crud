@@ -2,8 +2,8 @@ import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router';
 import Products from '@/pages/admin/Products.vue';
 import Admin from '@/pages/admin/Admin.vue';
 import Main from '@/pages/Main.vue';
-import ProductsCreate from '@/pages/admin/ProductsCreate.vue';
 import ProductsEdit, {id} from '@/pages/admin/ProductsEdit.vue';
+import ProductsCreate from '@/pages/admin/ProductsCreate.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {

@@ -39,7 +39,7 @@
 <script lang='ts'>
 import {onMounted, ref, Ref} from 'vue';
 import {Product} from '@/types/product';
-import {applicationJson} from '@/pages/admin/ProductsEdit.vue';
+import {getLike} from '@/pages/main';
 
 export default {
   name: 'Main',
@@ -52,33 +52,9 @@ export default {
       products.value = await response.json();
     });
 
-    const like = async (id: number) => {
-      try {
-        const resp = await fetch(
-          `http://localhost:8001/api/products/${id}/like/`,
-          {
-            method: 'POST',
-            headers: {'Content-type': applicationJson}
-          }
-        );
-        const resp2 = await resp.json();
-
-        products.value.forEach(
-          (p: Product) => {
-            if (p.id === id) {
-              // eslint-disable-next-line no-param-reassign, no-plusplus
-              p.likes++;
-            }
-          }
-        );
-      } catch (e) {
-        console.log('lol, no this time');
-      }
-    };
-
     return {
       products,
-      like
+      like: getLike(products)
     };
   }
 };

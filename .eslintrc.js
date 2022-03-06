@@ -20,5 +20,6 @@ module.exports = {
     'quotes': ['error', 'single'],
     'comma-dangle': ['off', 'always'],
     'no-alert': ['off', 'always'],
+    'import/prefer-default-export': ['off', 'always'],
   },
 };
